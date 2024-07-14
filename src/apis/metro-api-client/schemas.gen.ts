@@ -79,6 +79,37 @@ export const $FullLine = {
     title: 'FullLine'
 } as const;
 
+export const $GTFSFeed = {
+    properties: {
+        id: {
+            type: 'string',
+            title: 'Id'
+        },
+        locationCode: {
+            type: 'string',
+            title: 'Locationcode'
+        },
+        url: {
+            type: 'string',
+            title: 'Url'
+        },
+        name: {
+            type: 'string',
+            title: 'Name'
+        },
+        operators: {
+            items: {
+                '$ref': '#/components/schemas/Operator'
+            },
+            type: 'array',
+            title: 'Operators'
+        }
+    },
+    type: 'object',
+    required: ['id', 'locationCode', 'url', 'name', 'operators'],
+    title: 'GTFSFeed'
+} as const;
+
 export const $HTTPValidationError = {
     properties: {
         detail: {

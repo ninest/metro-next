@@ -21,6 +21,14 @@ export type FullLine = {
     };
 };
 
+export type GTFSFeed = {
+    id: string;
+    locationCode: string;
+    url: string;
+    name: string;
+    operators: Array<Operator>;
+};
+
 export type HTTPValidationError = {
     detail?: Array<ValidationError>;
 };
@@ -74,11 +82,11 @@ export type ValidationError = {
 
 export type PongResponse = unknown;
 
-export type GetOperatorsByLocationData = {
+export type GetFeedsData = {
     locationCode: string;
 };
 
-export type GetOperatorsByLocationResponse = Array<Operator>;
+export type GetFeedsResponse = Array<GTFSFeed>;
 
 export type GetOperatorData = {
     locationCode: string;
@@ -93,6 +101,12 @@ export type GetStopsData = {
 };
 
 export type GetStopsResponse = Array<Stop>;
+
+export type GetLinesByLocationData = {
+    locationCode: string;
+};
+
+export type GetLinesByLocationResponse = Array<Line>;
 
 export type GetLinesData = {
     locationCode: string;
@@ -120,14 +134,14 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/transit/{location_code}': {
+    '/v1/transit/{location_code}': {
         get: {
-            req: GetOperatorsByLocationData;
+            req: GetFeedsData;
             res: {
                 /**
                  * Successful Response
                  */
-                200: Array<Operator>;
+                200: Array<GTFSFeed>;
                 /**
                  * Validation Error
                  */
@@ -135,7 +149,7 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/transit/{location_code}/{operator_id}': {
+    '/v1/transit/{location_code}/{operator_id}': {
         get: {
             req: GetOperatorData;
             res: {
@@ -150,7 +164,7 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/transit/{location_code}/{operator_id}/stops': {
+    '/v1/transit/{location_code}/{operator_id}/stops': {
         get: {
             req: GetStopsData;
             res: {
@@ -165,7 +179,22 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/transit/{location_code}/{operator_id}/lines': {
+    '/v1/transit/{location_code}/lines': {
+        get: {
+            req: GetLinesByLocationData;
+            res: {
+                /**
+                 * Successful Response
+                 */
+                200: Array<Line>;
+                /**
+                 * Validation Error
+                 */
+                422: HTTPValidationError;
+            };
+        };
+    };
+    '/v1/transit/{location_code}/{operator_id}/lines': {
         get: {
             req: GetLinesData;
             res: {
@@ -180,7 +209,7 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/transit/{location_code}/{operator_id}/lines/{route_id}': {
+    '/v1/transit/{location_code}/{operator_id}/lines/{route_id}': {
         get: {
             req: GetLineData;
             res: {

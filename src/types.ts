@@ -10,3 +10,10 @@ export enum RouteType {
   trolleybus = 11,
   monorail = 12,
 }
+
+export type Line = {
+  id: string;
+  longName: string;
+  color: string;
+  type: RouteType;
+};

@@ -3,7 +3,7 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type { PongResponse, GetOperatorsByLocationData, GetOperatorsByLocationResponse, GetOperatorData, GetOperatorResponse, GetStopsData, GetStopsResponse, GetLinesData, GetLinesResponse, GetLineData, GetLineResponse } from './types.gen';
+import type { PongResponse, GetFeedsData, GetFeedsResponse, GetOperatorData, GetOperatorResponse, GetStopsData, GetStopsResponse, GetLinesByLocationData, GetLinesByLocationResponse, GetLinesData, GetLinesResponse, GetLineData, GetLineResponse } from './types.gen';
 
 /**
  * Pong
@@ -16,15 +16,15 @@ export const pong = (): CancelablePromise<PongResponse> => { return __request(Op
 }); };
 
 /**
- * Get Operators By Location
+ * Get Feeds
  * @param data The data for the request.
  * @param data.locationCode
- * @returns Operator Successful Response
+ * @returns GTFSFeed Successful Response
  * @throws ApiError
  */
-export const getOperatorsByLocation = (data: GetOperatorsByLocationData): CancelablePromise<GetOperatorsByLocationResponse> => { return __request(OpenAPI, {
+export const getFeeds = (data: GetFeedsData): CancelablePromise<GetFeedsResponse> => { return __request(OpenAPI, {
     method: 'GET',
-    url: '/transit/{location_code}',
+    url: '/v1/transit/{location_code}',
     path: {
         location_code: data.locationCode
     },
@@ -43,7 +43,7 @@ export const getOperatorsByLocation = (data: GetOperatorsByLocationData): Cancel
  */
 export const getOperator = (data: GetOperatorData): CancelablePromise<GetOperatorResponse> => { return __request(OpenAPI, {
     method: 'GET',
-    url: '/transit/{location_code}/{operator_id}',
+    url: '/v1/transit/{location_code}/{operator_id}',
     path: {
         location_code: data.locationCode,
         operator_id: data.operatorId
@@ -63,10 +63,28 @@ export const getOperator = (data: GetOperatorData): CancelablePromise<GetOperato
  */
 export const getStops = (data: GetStopsData): CancelablePromise<GetStopsResponse> => { return __request(OpenAPI, {
     method: 'GET',
-    url: '/transit/{location_code}/{operator_id}/stops',
+    url: '/v1/transit/{location_code}/{operator_id}/stops',
     path: {
         location_code: data.locationCode,
         operator_id: data.operatorId
+    },
+    errors: {
+        422: 'Validation Error'
+    }
+}); };
+
+/**
+ * Get Lines By Location
+ * @param data The data for the request.
+ * @param data.locationCode
+ * @returns Line Successful Response
+ * @throws ApiError
+ */
+export const getLinesByLocation = (data: GetLinesByLocationData): CancelablePromise<GetLinesByLocationResponse> => { return __request(OpenAPI, {
+    method: 'GET',
+    url: '/v1/transit/{location_code}/lines',
+    path: {
+        location_code: data.locationCode
     },
     errors: {
         422: 'Validation Error'
@@ -83,7 +101,7 @@ export const getStops = (data: GetStopsData): CancelablePromise<GetStopsResponse
  */
 export const getLines = (data: GetLinesData): CancelablePromise<GetLinesResponse> => { return __request(OpenAPI, {
     method: 'GET',
-    url: '/transit/{location_code}/{operator_id}/lines',
+    url: '/v1/transit/{location_code}/{operator_id}/lines',
     path: {
         location_code: data.locationCode,
         operator_id: data.operatorId
@@ -104,7 +122,7 @@ export const getLines = (data: GetLinesData): CancelablePromise<GetLinesResponse
  */
 export const getLine = (data: GetLineData): CancelablePromise<GetLineResponse> => { return __request(OpenAPI, {
     method: 'GET',
-    url: '/transit/{location_code}/{operator_id}/lines/{route_id}',
+    url: '/v1/transit/{location_code}/{operator_id}/lines/{route_id}',
     path: {
         location_code: data.locationCode,
         operator_id: data.operatorId,
