@@ -13,7 +13,24 @@ export enum RouteType {
 
 export type Line = {
   id: string;
+  shortName: string;
   longName: string;
   color: string;
   type: RouteType;
+};
+
+export type Direction = {
+  id: string;
+  name: string;
+  destination: string;
+  stops: { id: string; parentStation: string }[];
+  order: { [key: string]: string[] };
+};
+
+export type Stop = {
+  id: string;
+  name: string;
+  url: null | string;
+  address: null | string;
+  parentStation: null | string;
 };

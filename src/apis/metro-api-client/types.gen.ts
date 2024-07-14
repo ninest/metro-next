@@ -37,6 +37,7 @@ export type Line = {
     id: string;
     color: string;
     textColor: string;
+    shortName: string | null;
     longName: string | null;
     url: string | null;
     type: RouteTypeEnum;
@@ -88,6 +89,12 @@ export type GetFeedsData = {
 
 export type GetFeedsResponse = Array<GTFSFeed>;
 
+export type GetStopsData = {
+    locationCode: string;
+};
+
+export type GetStopsResponse = Array<Stop>;
+
 export type GetOperatorData = {
     locationCode: string;
     operatorId: string;
@@ -95,29 +102,14 @@ export type GetOperatorData = {
 
 export type GetOperatorResponse = Operator;
 
-export type GetStopsData = {
-    locationCode: string;
-    operatorId: string;
-};
-
-export type GetStopsResponse = Array<Stop>;
-
 export type GetLinesByLocationData = {
     locationCode: string;
 };
 
 export type GetLinesByLocationResponse = Array<Line>;
 
-export type GetLinesData = {
-    locationCode: string;
-    operatorId: string;
-};
-
-export type GetLinesResponse = Array<Line>;
-
 export type GetLineData = {
     locationCode: string;
-    operatorId: string;
     routeId: string;
 };
 
@@ -149,6 +141,21 @@ export type $OpenApiTs = {
             };
         };
     };
+    '/v1/transit/{location_code}/stops': {
+        get: {
+            req: GetStopsData;
+            res: {
+                /**
+                 * Successful Response
+                 */
+                200: Array<Stop>;
+                /**
+                 * Validation Error
+                 */
+                422: HTTPValidationError;
+            };
+        };
+    };
     '/v1/transit/{location_code}/{operator_id}': {
         get: {
             req: GetOperatorData;
@@ -157,21 +164,6 @@ export type $OpenApiTs = {
                  * Successful Response
                  */
                 200: Operator;
-                /**
-                 * Validation Error
-                 */
-                422: HTTPValidationError;
-            };
-        };
-    };
-    '/v1/transit/{location_code}/{operator_id}/stops': {
-        get: {
-            req: GetStopsData;
-            res: {
-                /**
-                 * Successful Response
-                 */
-                200: Array<Stop>;
                 /**
                  * Validation Error
                  */
@@ -194,22 +186,7 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/v1/transit/{location_code}/{operator_id}/lines': {
-        get: {
-            req: GetLinesData;
-            res: {
-                /**
-                 * Successful Response
-                 */
-                200: Array<Line>;
-                /**
-                 * Validation Error
-                 */
-                422: HTTPValidationError;
-            };
-        };
-    };
-    '/v1/transit/{location_code}/{operator_id}/lines/{route_id}': {
+    '/v1/transit/{location_code}/lines/{route_id}': {
         get: {
             req: GetLineData;
             res: {

@@ -7,5 +7,9 @@ export const routes = {
     routeType: (routeType: RouteType) => ({
       index: () => `/${locationCode}/${getRouteTypeSlug(routeType)}`,
     }),
+    line: (lineId: string) => ({
+      index: () => `/${locationCode}/line/${lineId.toLowerCase()}`,
+      direction: (directionId: string) => `/${locationCode}/line/${lineId.toLowerCase()}?direction=${directionId}`,
+    }),
   }),
 };

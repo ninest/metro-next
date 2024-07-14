@@ -138,6 +138,17 @@ export const $Line = {
             type: 'string',
             title: 'Textcolor'
         },
+        shortName: {
+            anyOf: [
+                {
+                    type: 'string'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Shortname'
+        },
         longName: {
             anyOf: [
                 {
@@ -165,7 +176,7 @@ export const $Line = {
         }
     },
     type: 'object',
-    required: ['id', 'color', 'textColor', 'longName', 'url', 'type'],
+    required: ['id', 'color', 'textColor', 'shortName', 'longName', 'url', 'type'],
     title: 'Line'
 } as const;
 

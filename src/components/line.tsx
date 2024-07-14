@@ -1,30 +1,27 @@
+import { routes } from "@/routes";
 import { Line, RouteType } from "@/types";
+import Link from "next/link";
 
-export function LineList({ lines }: { lines: Line[] }) {
+export function LineList({ lines, locationCode }: { lines: Line[]; locationCode: string }) {
   return (
     <div className="space-y-3">
       {lines.map((line) => {
-        return <LineDisplay key={line.id} line={line} />;
+        return <LineDisplay key={line.id} line={line} locationCode={locationCode} />;
       })}
     </div>
   );
 }
 
-export function LineDisplay({ line }: { line: Line }) {
-  const isBus = [RouteType.bus, RouteType.trolleybus].includes(line.type);
-  const showBusNumber = 
+export function LineDisplay({ line, locationCode }: { line: Line; locationCode: string }) {
   return (
-    <div className="border p-3 rounded-md flex items-baseline gap-2">
-      <div className="size-3 rounded-full flex-none" style={{ backgroundColor: `#${line.color}` }}></div>
+    <Link
+      href={routes.location(locationCode).line(line.id).index()}
+      className="pb-3 border-b flex items-baseline gap-2"
+    >
+      <div className="size-3 rounded-sm flex-none" style={{ backgroundColor: `#${line.color}` }}></div>
       <div>
-        {isBus ? (
-          <>
-            <span className="font-bold">{line.id}</span> <span className="">{line.longName}</span>
-          </>
-        ) : (
-          <span className="font-bold">{line.longName}</span>
-        )}
+        <span className="font-bold">{line.shortName}</span> <span className="">{line.longName}</span>
       </div>
-    </div>
+    </Link>
   );
 }

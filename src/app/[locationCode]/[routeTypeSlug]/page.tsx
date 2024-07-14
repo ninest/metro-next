@@ -15,7 +15,7 @@ export default async function RouteTypePage({ params }: { params: { locationCode
 
       <Spacer className="h-3" />
 
-      <LineList lines={linesByRouteType} />
+      <LineList lines={linesByRouteType} locationCode={params.locationCode} />
     </>
   );
 }
