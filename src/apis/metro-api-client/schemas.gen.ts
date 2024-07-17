@@ -51,6 +51,10 @@ export const $FullLine = {
             type: 'string',
             title: 'Textcolor'
         },
+        shortName: {
+            type: 'string',
+            title: 'Shortname'
+        },
         longName: {
             type: 'string',
             title: 'Longname'
@@ -66,6 +70,9 @@ export const $FullLine = {
             ],
             title: 'Url'
         },
+        type: {
+            '$ref': '#/components/schemas/RouteTypeEnum'
+        },
         directions: {
             additionalProperties: {
                 '$ref': '#/components/schemas/Direction'
@@ -75,7 +82,7 @@ export const $FullLine = {
         }
     },
     type: 'object',
-    required: ['id', 'color', 'textColor', 'longName', 'url', 'directions'],
+    required: ['id', 'color', 'textColor', 'shortName', 'longName', 'url', 'type', 'directions'],
     title: 'FullLine'
 } as const;
 

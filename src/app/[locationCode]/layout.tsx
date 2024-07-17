@@ -10,6 +10,7 @@ export default async function IndexLayout({
   children: ReactNode;
 }) {
   const feeds = await metroApiClient.getFeeds(params);
+  
   return (
     <main className="p-5">
       <h1 className="font-black text-4xl">{feeds[0].name}</h1>

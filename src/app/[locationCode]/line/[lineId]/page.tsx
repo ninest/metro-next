@@ -20,14 +20,14 @@ export default async function LinePage({
   return (
     <>
       <div style={{ color: `#${line.textColor}`, backgroundColor: `#${line.color}` }} className="rounded">
-        <h2 className="font-bold text-2xl">{line.longName}</h2>
+        <h2 className="font-bold text-2xl">{line.shortName} {line.longName}</h2>
       </div>
 
       <Spacer className="h-5" />
 
       <DirectionDisplay
         locationCode={params.locationCode}
-        lineId={params.lineId}
+        line={line}
         currentDirectionId={currentDirectionId}
         directions={directions}
         stops={stops}

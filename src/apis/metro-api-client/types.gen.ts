@@ -14,8 +14,10 @@ export type FullLine = {
     id: string;
     color: string;
     textColor: string;
+    shortName: string;
     longName: string;
     url: string | null;
+    type: RouteTypeEnum;
     directions: {
         [key: string]: Direction;
     };
@@ -95,12 +97,12 @@ export type GetStopsData = {
 
 export type GetStopsResponse = Array<Stop>;
 
-export type GetOperatorData = {
+export type GetLineData = {
     locationCode: string;
-    operatorId: string;
+    routeId: string;
 };
 
-export type GetOperatorResponse = Operator;
+export type GetLineResponse = FullLine;
 
 export type GetLinesByLocationData = {
     locationCode: string;
@@ -108,12 +110,12 @@ export type GetLinesByLocationData = {
 
 export type GetLinesByLocationResponse = Array<Line>;
 
-export type GetLineData = {
+export type GetOperatorData = {
     locationCode: string;
-    routeId: string;
+    operatorId: string;
 };
 
-export type GetLineResponse = FullLine;
+export type GetOperatorResponse = Operator;
 
 export type $OpenApiTs = {
     '/ping': {
@@ -156,14 +158,14 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/v1/transit/{location_code}/{operator_id}': {
+    '/v1/transit/{location_code}/lines/{route_id}': {
         get: {
-            req: GetOperatorData;
+            req: GetLineData;
             res: {
                 /**
                  * Successful Response
                  */
-                200: Operator;
+                200: FullLine;
                 /**
                  * Validation Error
                  */
@@ -186,14 +188,14 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/v1/transit/{location_code}/lines/{route_id}': {
+    '/v1/transit/{location_code}/{operator_id}': {
         get: {
-            req: GetLineData;
+            req: GetOperatorData;
             res: {
                 /**
                  * Successful Response
                  */
-                200: FullLine;
+                200: Operator;
                 /**
                  * Validation Error
                  */
